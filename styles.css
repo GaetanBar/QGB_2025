@@ -1,0 +1,638 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+/* Modern CSS Reset and Base Styles */
+:root {
+    --primary: #6B4CE6;
+    --primary-light: #8E72FF;
+    --secondary: #4C6EF5;
+    --accent: #00E5FF;
+    --background: #0A0F1F;
+    --surface: rgba(255, 255, 255, 0.03);
+    --text: #E2E8F0;
+    --text-light: #94A3B8;
+    --white: #FFFFFF;
+    --shadow: rgba(0, 0, 0, 0.2);
+    --nav-height: 80px; /* Added for scroll padding calculation */
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-height) + 2rem); /* Added to prevent section titles from being hidden */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: var(--text);
+    background-color: var(--background);
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(107, 76, 230, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(76, 110, 245, 0.08) 0%, transparent 50%);
+    background-attachment: fixed;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+}
+
+/* Typography with animations */
+h1, h2, h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+h1 {
+    font-size: 3.5rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--white) 0%, var(--accent) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 8s ease infinite;
+}
+
+h2 {
+    font-size: 2.5rem;
+    color: var(--white);
+}
+
+h3 {
+    font-size: 1.75rem;
+    color: var(--accent);
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--text);
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--white);
+    margin-bottom: 3rem;
+}
+
+header p {
+    color: var(--text);
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Navigation */
+nav {
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 1rem;
+    margin: 2rem 0 4rem;
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    border-radius: 16px;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    min-height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+nav a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Section Styles with enhanced animations */
+section {
+    margin-bottom: 4rem;
+    padding: 2rem;
+    position: relative;
+    border-radius: 24px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-play-state: paused;
+}
+
+section.visible {
+    animation-play-state: running;
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Abstract Cell Styles with enhanced animations */
+.abstract-cell {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    animation: float 6s ease-in-out infinite;
+}
+
+.abstract-cell::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--surface);
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: -1;
+    border-radius: 16px;
+}
+
+.abstract-cell:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.abstract-cell:hover {
+    transform: translateY(-5px);
+}
+
+.abstract-title {
+    margin-bottom: 1rem;
+}
+
+.speaker-name {
+    color: var(--accent);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.talk-title {
+    color: var(--white);
+    font-size: 1.3rem;
+    font-weight: 500;
+    display: block;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.abstract-content {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.abstract-label {
+    color: var(--primary-light);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+/* Day Selection and Schedule Styles */
+.day-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.day-btn {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--text);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.day-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.day-btn:hover::before {
+    opacity: 0.1;
+}
+
+.day-btn:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(107, 76, 230, 0.2);
+}
+
+.day-btn.active {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 4px 20px rgba(107, 76, 230, 0.3);
+}
+
+/* Schedule Visibility */
+.day-schedule {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.day-schedule.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Schedule Table Styles */
+.schedule-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2rem 0;
+}
+
+.schedule-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--white);
+    padding: 1rem;
+    text-align: left;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.schedule-table th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.schedule-table th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.schedule-table tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+.schedule-table tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+.schedule-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.time-slot {
+    color: var(--accent);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.session-type {
+    color: var(--white);
+    font-weight: 600;
+}
+
+.schedule-table tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Map Container Styles */
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    margin: 2rem 0;
+    overflow: hidden;
+    border-radius: 16px;
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.map-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    color: var(--text);
+}
+
+/* Speakers List Styles */
+.speakers-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.speakers-list li {
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.speakers-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.speakers-list strong {
+    color: var(--white);
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.speakers-list .affiliation {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Organizers Styles */
+.organizers-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.organizer-card {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.organizer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.organizer-card h3 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.organizer-card .affiliation {
+    color: var(--text-light);
+    font-style: italic;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.organizer-card .contact {
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+/* Poster Section Styles */
+.poster-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--surface);
+    border-radius: 24px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.poster-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.conference-poster {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.conference-poster:hover {
+    transform: scale(1.02);
+}
+
+.poster-download {
+    margin-top: 1rem;
+}
+
+.poster-download .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.poster-download .btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(107, 76, 230, 0.3);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    header {
+        padding: 3rem 1rem;
+    }
+
+    section {
+        padding: 1.5rem 0;
+    }
+
+    nav {
+        padding: 0.5rem;
+        margin: 1rem 0 2rem;
+        height: auto;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.5rem;
+    }
+
+    nav a {
+        display: block;
+        text-align: center;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .schedule-table {
+        font-size: 0.85rem;
+    }
+    
+    .schedule-table th,
+    .schedule-table td {
+        padding: 0.75rem;
+    }
+
+    .day-selector {
+        flex-direction: column;
+    }
+    
+    .day-btn {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .map-container {
+        padding-bottom: 75%;
+    }
+
+    .speakers-list {
+        grid-template-columns: 1fr;
+    }
+
+    .organizers-list {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+}
+
+/* Intersection Observer Animation Trigger */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+} 
