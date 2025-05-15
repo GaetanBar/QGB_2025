@@ -6,6 +6,27 @@
     <meta name="description" content="Random Tensors, from Quantum Field Theory to Quantum Information">
     <title>Quantum Gravity in Bordeaux 2025</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        nav.nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                position: fixed;
+                width: 100%;
+                background: white;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -220,6 +241,48 @@
                 const clickedButton = document.querySelector(`[onclick="showDay('${dayId}')"]`);
                 clickedButton.classList.add('active');
             }
+
+            // Hide navigation bar on scroll for mobile
+            let lastScrollTop = 0;
+            const nav = document.querySelector('nav');
+            const mobileThreshold = 768; // Same as media query
+
+            function handleScroll() {
+                if (window.innerWidth <= mobileThreshold) {
+                    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (currentScroll > lastScrollTop && currentScroll > nav.offsetHeight) {
+                        // Scrolling down
+                        nav.classList.add('nav-hidden');
+                    } else {
+                        // Scrolling up
+                        nav.classList.remove('nav-hidden');
+                    }
+                    
+                    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+                } else {
+                    nav.classList.remove('nav-hidden');
+                }
+            }
+
+            // Throttle scroll event to improve performance
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // Handle resize events
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > mobileThreshold) {
+                    nav.classList.remove('nav-hidden');
+                }
+            });
         </script>
 
         <section id="abstracts">
