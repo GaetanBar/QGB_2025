@@ -7,23 +7,24 @@
     <title>Quantum Gravity in Bordeaux 2025</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        nav.nav-hidden {
-            transform: translateY(-100%);
-        }
-
         @media (max-width: 768px) {
+            header {
+                margin-bottom: 60px; /* Space for fixed nav */
+            }
+
             nav {
                 position: fixed;
+                top: 0;
+                left: 0;
                 width: 100%;
-                background: white;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin: 0;
+                transform: translateY(0);
+                transition: transform 0.3s ease-in-out;
+                z-index: 1000;
+            }
+
+            nav.nav-hidden {
+                transform: translateY(-100%);
             }
         }
     </style>
@@ -36,7 +37,7 @@
         <a href="#program" class="btn">View Program</a>
     </header>
 
-    <nav>
+    <nav id="mainNav">
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#speakers">Speakers</a></li>
@@ -245,23 +246,37 @@
             // Hide navigation bar on scroll for mobile
             let lastScrollTop = 0;
             const nav = document.querySelector('nav');
-            const mobileThreshold = 768; // Same as media query
+            const header = document.querySelector('header');
+            const mobileThreshold = 768;
+
+            function updateNavPosition() {
+                if (window.innerWidth <= mobileThreshold) {
+                    const headerBottom = header.getBoundingClientRect().bottom;
+                    if (headerBottom <= 0) {
+                        nav.style.transform = 'translateY(0)';
+                    } else {
+                        nav.style.transform = `translateY(${headerBottom}px)`;
+                    }
+                } else {
+                    nav.style.transform = '';
+                }
+            }
 
             function handleScroll() {
                 if (window.innerWidth <= mobileThreshold) {
                     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    const headerHeight = header.offsetHeight;
                     
-                    if (currentScroll > lastScrollTop && currentScroll > nav.offsetHeight) {
-                        // Scrolling down
+                    if (currentScroll > lastScrollTop && currentScroll > headerHeight) {
+                        // Scrolling down & past header
                         nav.classList.add('nav-hidden');
                     } else {
-                        // Scrolling up
+                        // Scrolling up or above header
                         nav.classList.remove('nav-hidden');
                     }
                     
                     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-                } else {
-                    nav.classList.remove('nav-hidden');
+                    updateNavPosition();
                 }
             }
 
@@ -280,9 +295,15 @@
             // Handle resize events
             window.addEventListener('resize', function() {
                 if (window.innerWidth > mobileThreshold) {
+                    nav.style.transform = '';
                     nav.classList.remove('nav-hidden');
+                } else {
+                    updateNavPosition();
                 }
             });
+
+            // Initial position
+            updateNavPosition();
         </script>
 
         <section id="abstracts">
