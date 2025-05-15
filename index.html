@@ -34,11 +34,22 @@
             top: 10px;
             right: 10px;
             z-index: 1001;
-            background: #f8f9fa;
+            background: var(--surface);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: none;
-            padding: 10px;
+            padding: 12px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent);
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
@@ -54,6 +65,11 @@
                 width: 100%;
                 z-index: 1000;
                 padding: 1rem;
+                background: var(--surface);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
             }
 
             nav.nav-visible {
@@ -74,7 +90,17 @@
 
             nav a {
                 display: block;
-                padding: 0.5rem;
+                padding: 0.75rem;
+                color: var(--text);
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+
+            nav a:hover {
+                color: var(--accent);
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
             }
         }
     </style>
