@@ -623,6 +623,38 @@ footer {
         grid-template-columns: 1fr;
         padding: 0 1rem;
     }
+
+    /* Mobile styles for abstracts */
+    .abstract-cells {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .abstract-cell {
+        width: 100%;
+        margin: 0;
+        padding: 1.5rem;
+    }
+
+    .abstract-title {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .speaker-name {
+        font-size: 1.2rem;
+    }
+
+    .talk-title {
+        font-size: 1rem;
+    }
+
+    .abstract-content {
+        font-size: 0.95rem;
+        margin-top: 1rem;
+    }
 }
 
 /* Intersection Observer Animation Trigger */
